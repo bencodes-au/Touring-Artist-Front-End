@@ -8,9 +8,9 @@ export const useFilteredVenues = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/venues") // Ensure this matches your backend URL
+      .get("http://localhost:3000/venues")
       .then((response) => {
-        console.log("API Response:", response.data); // Debugging
+        console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
           setVenues(response.data);
         } else {

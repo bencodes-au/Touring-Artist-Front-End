@@ -22,7 +22,7 @@ export const VenuesPage = () => {
         id="genre"
         value={selectedGenre}
         onChange={(event) => {
-          console.log("Selected Genre:", event.target.value); // Debugging
+          console.log("Selected Genre:", event.target.value);
           setSelectedGenre(event.target.value);
         }}
       >
@@ -44,7 +44,7 @@ export const VenuesPage = () => {
         id="location"
         value={selectedLocation}
         onChange={(event) => {
-          console.log("Selected Location:", event.target.value); // Debugging
+          console.log("Selected Location:", event.target.value);
           setSelectedLocation(event.target.value);
         }}
       >
@@ -66,15 +66,16 @@ export const VenuesPage = () => {
           venues.map((venue) => (
             <li key={venue._id}>
               <strong>{venue.name}</strong>
-              <br />
-              <em>{venue.genre}</em> - <em>{venue.location}</em>
+              {/* <br /> */}
+              <div>Genre: {venue.genre}</div>
+              <div>Location: {venue.location}</div>
               <div>Address: {venue.address}</div>
               <div>Phone: {venue.phone}</div>
               <div>Price: ${venue.price}</div>
             </li>
           ))
         ) : (
-          <li>No venues found matching the filters.</li>
+          <li>No venues found matching your criteria.</li>
         )}
       </ul>
     </div>
