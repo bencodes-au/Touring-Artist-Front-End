@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Change this URL to the correct path and port of your API
 const API_BASE_URL = "https://api.example.com";
 const DEV_BASE_URL = "http://localhost:3000/";
 
