@@ -25,24 +25,24 @@ export const BookingsPage = () => {
     }
   }, [token, userId, navigate]);
 
-  // // Fetch bookings only if logged in
-  // useEffect(() => {
-  //   if (token && userId) {
-  //     axios
-  //       .get(`http://localhost:3000/bookings/user/${userId}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         setBookings(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching bookings:", error.response || error);
-  //         setError("Failed to load bookings.");
-  //       });
-  //   }
-  // }, [token, userId, navigate]);
+  // Fetch bookings only if logged in
+  useEffect(() => {
+    if (token && userId) {
+      axios
+        .get(`http://localhost:3000/bookings/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setBookings(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching bookings:", error.response || error);
+          setError("Failed to load bookings.");
+        });
+    }
+  }, [token, userId, navigate]);
 
   return (
     <div>
