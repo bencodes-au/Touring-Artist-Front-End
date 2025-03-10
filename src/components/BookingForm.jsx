@@ -8,20 +8,26 @@ const BookingForm = () => {
     artist: "",
     paidUpfront: false,
   });
-  const [error, setError] = useState(""); // Error state to display error message
-  const [venues, setVenues] = useState([]); // State to store venues
+  const [error, setError] = useState("");
+  const [venues, setVenues] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Fetch venues from the backend when the component mounts
+  // Fetch venues from the backend
   useEffect(() => {
     axios
-      .get("http://localhost:3000/venues") // Replace with the correct URL for fetching venues
+      .get("http://localhost:3000/venues")
       .then((response) => {
-        setVenues(response.data); // Update venues state
+        setVenues(response.data);
       })
       .catch((error) => {
         console.error("Error fetching venues:", error);
       });
-  }, []); // Empty dependency array to run only once
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -30,11 +36,27 @@ const BookingForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    console.log("Token:", token);
+    console.log("User ID:", userId);
+
+    if (!token) {
+      setError("You must be logged in to make a booking.");
+      return;
+    }
+
+    console.log("Form Data before sending:", formData);
+
+    const dataWithUserId = { ...formData, userId };
+    console.log("Data being sent with userId:", dataWithUserId);
+
     // Send the booking request to the backend
     axios
-      .post("http://localhost:3000/bookings", formData, {
+      .post("http://localhost:3000/bookings", dataWithUserId, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
@@ -46,15 +68,15 @@ const BookingForm = () => {
           artist: "",
           paidUpfront: false,
         });
-        setError(""); // Reset any previous error
+        setError("");
       })
       .catch((error) => {
         // Check if the error response contains a message from the backend
         if (error.response && error.response.data.error) {
-          setError(error.response.data.error); // Display the specific error message
+          setError(error.response.data.error);
         } else {
           console.error("Error making booking:", error);
-          setError("Failed to create booking. Please try again."); // Fallback error message
+          setError("Failed to create booking. Please try again.");
         }
       });
   };

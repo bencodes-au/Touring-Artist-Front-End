@@ -13,7 +13,6 @@ export function RegisterForm() {
   }
   return (
     <div className="register-container">
-      <h1>Register</h1>
       <form>
         <div className="register-form-control">
           <label>Username: </label>

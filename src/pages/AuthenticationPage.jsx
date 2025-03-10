@@ -1,21 +1,18 @@
 import React from "react";
+import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
 
 export function AuthenticationPage() {
   return (
-    <div className="login-container">
+    <div className="authentication-container">
       <h1>Login</h1>
-      <form>
-        <div className="">
-          <label>Email: </label>
-          <input type="email" placeholder="Enter your email" />
-        </div>
-        <div className="">
-          <label>Password: </label>
-          <input type="password" placeholder="Enter your password" />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+
+      {/* Render the LoginForm component */}
+      <LoginForm />
+
+      <h1>Register</h1>
+
+      {/* Render the RegisterForm component */}
       <RegisterForm />
     </div>
   );

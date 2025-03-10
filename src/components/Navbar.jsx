@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LoginIndicator from "./LoginIndicator"; // Import the LoginIndicator component
 
 export function Navbar(props) {
   return (
@@ -17,6 +18,7 @@ export function Navbar(props) {
           <Link to="/authentication">Authentication</Link>
         </li>
       </ul>
+      <LoginIndicator /> {/* Show the login status */}
     </nav>
   );
 }
