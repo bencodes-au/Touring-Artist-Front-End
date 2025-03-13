@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../hooks/api";
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -14,8 +14,8 @@ const BookingForm = () => {
 
   // Fetch venues from the backend
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/venues")
+    api
+      .get("/venues")
       .then((response) => {
         setVenues(response.data);
       })
@@ -52,8 +52,8 @@ const BookingForm = () => {
     console.log("Data being sent with userId:", dataWithUserId);
 
     // Send the booking request to the backend
-    axios
-      .post("http://localhost:3000/bookings", dataWithUserId, {
+    api
+      .post("/bookings", dataWithUserId, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

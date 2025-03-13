@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://api.example.com";
+const API_BASE_URL = "https://touring-artist-back-end.onrender.com";
 const DEV_BASE_URL = "http://localhost:3000/";
 
 const API_URL =

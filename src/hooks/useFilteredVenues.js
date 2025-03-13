@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./api";
 
 export const useFilteredVenues = () => {
   const [venues, setVenues] = useState([]);
@@ -7,8 +7,8 @@ export const useFilteredVenues = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/venues")
+    api
+      .get("/venues")
       .then((response) => {
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
