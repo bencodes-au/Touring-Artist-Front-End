@@ -5,7 +5,6 @@ import { useBookings } from "../hooks/useBookings";
 
 export const BookingsPage = () => {
   const navigate = useNavigate();
-
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
@@ -24,6 +23,7 @@ export const BookingsPage = () => {
       return;
     }
   }, [token, userId, navigate]);
+  console.log({ data, error });
 
   return (
     <div>
@@ -36,7 +36,7 @@ export const BookingsPage = () => {
       {error && <p>{error.message}</p>}
 
       {/* Show existing bookings if available */}
-      {data.data && data.data.length > 0 ? (
+      {!!data && data.data.length > 0 ? (
         <ul>
           {data.data.map((booking) => (
             <li key={booking._id}>
