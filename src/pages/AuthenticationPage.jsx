@@ -5,12 +5,12 @@ import { RegisterForm } from "../components/RegisterForm";
 export function AuthenticationPage() {
   return (
     <div className="authentication-container">
-      <h1>Login</h1>
+      <h2>Login</h2>
 
       {/* Render the LoginForm component */}
       <LoginForm />
 
-      <h1>Register</h1>
+      <h2>Register</h2>
 
       {/* Render the RegisterForm component */}
       <RegisterForm />

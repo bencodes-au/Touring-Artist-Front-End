@@ -27,18 +27,18 @@
 html,
 body {
   height: 100%;
-  font-family: "Inter", sans-serif;
+  font-family: 'Tektur', "Inter", sans-serif;
   background-color: var(--background);
   margin: 0;
   display: flex;
-  flex-direction: column; /* Stack navbar on top, content below */
+  flex-direction: column; 
   min-width: 320px;
-  min-height: 100vh; /* Ensure the body takes up at least 100% of the viewport height */
+  min-height: 100vh; 
 }
 
 main {
-  flex-grow: 1; /* Make the main content take up remaining space */
-  padding-top: 20px; /* Optional padding for spacing */
+  flex-grow: 1; 
+  padding-top: 20px;
 }
 
 h1 {
@@ -63,31 +63,15 @@ button {
   font-size: 1em;
   font-weight: 500;
   background-color: var(--accent);
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
 button:hover {
-  color: var(--primary);
-  border-color: var(--primary);
+  box-shadow: 0 0 10px rgb(122, 0, 0); 
 }
 
 button:focus {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Light Mode Styles */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
 }

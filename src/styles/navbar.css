@@ -70,7 +70,7 @@
   
     .nav-links {
       position: absolute;
-      top: 60px; /* Keep the dropdown menu under the navbar */
+      top: 60px;
       left: 0;
       width: 100%;
       flex-direction: column;

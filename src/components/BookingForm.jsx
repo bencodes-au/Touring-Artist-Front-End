@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import api from "../hooks/api";
 
-const BookingForm = () => {
+const BookingForm = ({ selectedVenueId }) => {
   const [formData, setFormData] = useState({
-    venue: "",
+    venue: selectedVenueId || "",
     date: "",
     artist: "",
     paidUpfront: false,
@@ -29,29 +29,25 @@ const BookingForm = () => {
     }
   }, []);
 
+  // Handle form input changes
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    console.log("Token:", token);
-    console.log("User ID:", userId);
 
     if (!token) {
       setError("You must be logged in to make a booking.");
       return;
     }
 
-    console.log("Form Data before sending:", formData);
-
     const dataWithUserId = { ...formData, userId };
-    console.log("Data being sent with userId:", dataWithUserId);
 
-    // Send the booking request to the backend
     api
       .post("/bookings", dataWithUserId, {
         headers: {
@@ -60,8 +56,6 @@ const BookingForm = () => {
         },
       })
       .then((response) => {
-        console.log("Booking created successfully:", response.data);
-        // Reset the form after successful booking
         setFormData({
           venue: "",
           date: "",
@@ -71,15 +65,22 @@ const BookingForm = () => {
         setError("");
       })
       .catch((error) => {
-        // Check if the error response contains a message from the backend
         if (error.response && error.response.data.error) {
           setError(error.response.data.error);
         } else {
-          console.error("Error making booking:", error);
           setError("Failed to create booking. Please try again.");
         }
       });
   };
+
+  useEffect(() => {
+    if (selectedVenueId) {
+      setFormData((prevState) => ({
+        ...prevState,
+        venue: selectedVenueId,
+      }));
+    }
+  }, [selectedVenueId]);
 
   return (
     <div>

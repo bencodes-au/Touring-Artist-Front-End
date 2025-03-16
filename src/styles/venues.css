@@ -1,0 +1,40 @@
+.venue-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .venue-card {
+    display: block; 
+    background-color: var(--primary);
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+    
+  .venue-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .venue-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  .venue-card p {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  
+  .venue-blurb {
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .venue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }

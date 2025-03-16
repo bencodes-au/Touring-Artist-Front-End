@@ -23,7 +23,10 @@ export function Navbar() {
           <p>Touring Artist</p>
         </NavLink>
 
+        {/* Login Indicator */}
+        <LoginIndicator />
         {/* Hamburger Icon (Mobile) */}
+
         <button
           className="menu-toggle"
           onClick={toggleMenu}
@@ -47,9 +50,6 @@ export function Navbar() {
             Log In/Register
           </NavLink>
         </div>
-
-        {/* Login Indicator */}
-        <LoginIndicator />
       </div>
     </nav>
   );
