@@ -1,24 +1,56 @@
-import { Link } from "react-router-dom";
-import LoginIndicator from "./LoginIndicator"; // Import the LoginIndicator component
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+import LoginIndicator from "./LoginIndicator";
+import "../styles/navbar.css";
 
-export function Navbar(props) {
+export function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/venues">Venues</Link>
-        </li>
-        <li>
-          <Link to="/bookings">Bookings</Link>
-        </li>
-        <li>
-          <Link to="/authentication">Authentication</Link>
-        </li>
-      </ul>
-      <LoginIndicator /> {/* Show the login status */}
+    <nav className="navbar">
+      <div className="navbar-container">
+        {/* Logo / Brand */}
+        <NavLink to="/" className="logo" onClick={closeMenu}>
+          <p>Touring Artist</p>
+        </NavLink>
+
+        {/* Hamburger Icon (Mobile) */}
+        <button
+          className="menu-toggle"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        {/* Navbar Links */}
+        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <NavLink to="/" onClick={closeMenu}>
+            Home
+          </NavLink>
+          <NavLink to="/venues" onClick={closeMenu}>
+            Venues
+          </NavLink>
+          <NavLink to="/bookings" onClick={closeMenu}>
+            Bookings
+          </NavLink>
+          <NavLink to="/authentication" onClick={closeMenu}>
+            Log In/Register
+          </NavLink>
+        </div>
+
+        {/* Login Indicator */}
+        <LoginIndicator />
+      </div>
     </nav>
   );
 }

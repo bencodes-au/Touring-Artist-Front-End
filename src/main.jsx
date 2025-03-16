@@ -4,14 +4,16 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import "./index.css";
-import App from "./App.jsx";
+import "./styles/index.css";
 import { HomePage } from "./pages/HomePage.jsx";
 import { VenuesPage } from "./pages/VenuesPage.jsx";
 import { BookingsPage } from "./pages/BookingsPage.jsx";
 import { AuthenticationPage } from "./pages/AuthenticationPage.jsx";
 import { Navbar } from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import "./styles/index.css";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,7 @@ root.render(
             element={<AuthenticationPage />}
           ></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

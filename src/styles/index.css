@@ -1,0 +1,93 @@
+:root {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+  --text: #000000;
+  --background: #ffffff;
+  --primary: #d5d7d7;
+  --accent: #7a0000;
+
+  background-color: var(--background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  background-color: var(--background);
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Stack navbar on top, content below */
+  min-width: 320px;
+  min-height: 100vh; /* Ensure the body takes up at least 100% of the viewport height */
+}
+
+main {
+  flex-grow: 1; /* Make the main content take up remaining space */
+  padding-top: 20px; /* Optional padding for spacing */
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+a {
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--accent);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+button:focus {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Light Mode Styles */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
