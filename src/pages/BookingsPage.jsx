@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import BookingForm from "../components/BookingForm";
 import { useBookings } from "../hooks/useBookings";
+import { isTokenExpired } from "../utils/auth";
 
 export const BookingsPage = () => {
   const navigate = useNavigate();
@@ -20,10 +21,11 @@ export const BookingsPage = () => {
 
   // Redirect to AuthenticationPage if not logged in
   useEffect(() => {
-    if (!token || !userId) {
+    if (!token || !userId || isTokenExpired(token)) {
       console.log(
-        "Redirecting to authentication page due to missing token or userId"
+        "Redirecting to authentication page due to expired or missing token"
       );
+      localStorage.removeItem("token");
       navigate("/authentication");
       return;
     }

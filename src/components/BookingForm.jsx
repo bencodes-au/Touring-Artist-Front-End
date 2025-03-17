@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../hooks/api";
+import { isTokenExpired } from "../utils/auth";
 
 const BookingForm = ({ selectedVenueId }) => {
   const [formData, setFormData] = useState({
@@ -41,8 +42,10 @@ const BookingForm = ({ selectedVenueId }) => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    if (!token) {
+    if (!token || isTokenExpired(token)) {
       setError("You must be logged in to make a booking.");
+      localStorage.removeItem("token");
+      window.location.href = "/authentication";
       return;
     }
 

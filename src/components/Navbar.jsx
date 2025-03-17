@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import LoginIndicator from "./LoginIndicator";
+import AuthButton from "./AuthButton";
 import "../styles/navbar.css";
 
 export function Navbar() {
@@ -23,10 +23,10 @@ export function Navbar() {
           <p>Touring Artist</p>
         </NavLink>
 
-        {/* Login Indicator */}
-        <LoginIndicator />
-        {/* Hamburger Icon (Mobile) */}
+        {/* Authentication Button */}
+        <AuthButton />
 
+        {/* Hamburger Icon (Mobile) */}
         <button
           className="menu-toggle"
           onClick={toggleMenu}
