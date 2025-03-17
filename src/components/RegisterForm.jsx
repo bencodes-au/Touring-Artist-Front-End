@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRegisterUser } from "../hooks/useRegisterUser";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -7,10 +8,22 @@ export function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const mutation = useRegisterUser();
+  const navigate = useNavigate();
 
   function handleSubmit() {
-    mutation.mutate({ username, phone, email, password });
+    mutation.mutate(
+      { username, phone, email, password },
+      {
+        onSuccess: () => {
+          navigate("/");
+        },
+        onError: (error) => {
+          console.error("Registration failed:", error);
+        },
+      }
+    );
   }
+
   return (
     <div className="register-container">
       <form>

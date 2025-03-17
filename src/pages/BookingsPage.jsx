@@ -9,7 +9,7 @@ export const BookingsPage = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-  const { data, error } = useBookings(userId, token);
+  const { data, error, isLoading } = useBookings(userId, token);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -19,7 +19,6 @@ export const BookingsPage = () => {
   console.log("User ID retrieved in BookingsPage:", userId);
   console.log("Selected Venue ID:", venueId);
 
-  // Redirect to AuthenticationPage if not logged in
   useEffect(() => {
     if (!token || !userId || isTokenExpired(token)) {
       console.log(
@@ -30,7 +29,20 @@ export const BookingsPage = () => {
       return;
     }
   }, [token, userId, navigate]);
+
   console.log({ data, error });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (data?.data?.length === 0) {
+    return <div>No bookings found.</div>;
+  }
 
   return (
     <div className="bookings">
@@ -39,21 +51,14 @@ export const BookingsPage = () => {
       {/* If the user is logged in, show the booking form */}
       {token && userId && <BookingForm selectedVenueId={venueId} />}
 
-      {/* Show error if there is one */}
-      {error && <p>{error.message}</p>}
-
       {/* Show existing bookings if available */}
-      {!!data && data.data.length > 0 ? (
-        <ul>
-          {data.data.map((booking) => (
-            <li key={booking._id}>
-              {booking.artist} - {booking.date}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No bookings found.</p>
-      )}
+      <ul>
+        {data?.data?.map((booking) => (
+          <li key={booking._id}>
+            {booking.artist} - {booking.date}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

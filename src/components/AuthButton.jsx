@@ -10,7 +10,9 @@ const AuthButton = () => {
 
   const handleClick = () => {
     if (isAuthenticated) {
-      navigate("/bookings");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      navigate("/");
     } else {
       navigate("/authentication");
     }
@@ -18,7 +20,7 @@ const AuthButton = () => {
 
   return (
     <button onClick={handleClick} className="auth-button">
-      {isAuthenticated ? "Book Now" : "Login"}
+      {isAuthenticated ? "Log Out" : "Log In"}
     </button>
   );
 };

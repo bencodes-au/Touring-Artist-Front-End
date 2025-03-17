@@ -23,9 +23,6 @@ export function Navbar() {
           <p>Touring Artist</p>
         </NavLink>
 
-        {/* Authentication Button */}
-        <AuthButton />
-
         {/* Hamburger Icon (Mobile) */}
         <button
           className="menu-toggle"
@@ -46,9 +43,8 @@ export function Navbar() {
           <NavLink to="/bookings" onClick={closeMenu}>
             Bookings
           </NavLink>
-          <NavLink to="/authentication" onClick={closeMenu}>
-            Log In/Register
-          </NavLink>
+          {/* Authentication Button */}
+          <AuthButton />
         </div>
       </div>
     </nav>
