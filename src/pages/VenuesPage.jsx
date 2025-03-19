@@ -16,20 +16,19 @@ export const VenuesPage = () => {
   } = useFilteredVenues();
 
   return (
-    <section className="venue-blurb">
+    <div className="venue-blurb">
       {/* Filters */}
       <div className="flex gap-4 px-12 mb-6">
         {/* Genre Dropdown */}
         <div className="dropdown">
-          <button
-            aria-expanded={selectedGenre ? "true" : "false"}
-            aria-label="Select Genre"
-            className="btn m-1"
-          >
+          <div tabIndex={0} role="button" className="btn m-1">
             {selectedGenre || "All Genres"}
             <FiChevronDown className="text-lg" />
-          </button>
-          <ul className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm">
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm"
+          >
             <li>
               <a onClick={() => setSelectedGenre("")}>All Genres</a>
             </li>
@@ -49,15 +48,14 @@ export const VenuesPage = () => {
 
         {/* Location Dropdown */}
         <div className="dropdown">
-          <button
-            aria-expanded={selectedLocation ? "true" : "false"}
-            aria-label="Select Location"
-            className="btn m-1"
-          >
+          <div tabIndex={0} role="button" className="btn m-1">
             {selectedLocation || "All Locations"}
             <FiChevronDown className="text-lg" />
-          </button>
-          <ul className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2">
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2"
+          >
             <li>
               <a onClick={() => setSelectedLocation("")}>All Locations</a>
             </li>
@@ -82,7 +80,7 @@ export const VenuesPage = () => {
       <div className="flex flex-wrap gap-6 p-12 justify-start">
         {venues.length > 0 ? (
           venues.map((venue) => (
-            <article
+            <div
               key={venue._id}
               className="card card-dash bg-base-100 w-96 shadow-md"
             >
@@ -106,12 +104,12 @@ export const VenuesPage = () => {
                   </Link>
                 </div>
               </div>
-            </article>
+            </div>
           ))
         ) : (
           <p>No venues found matching your criteria.</p>
         )}
       </div>
-    </section>
+    </div>
   );
 };
