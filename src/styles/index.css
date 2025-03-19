@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
-:root {
+/* :root {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -76,4 +77,4 @@ button:hover {
 
 button:focus {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
