@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../utils/auth";
 
-const AuthButton = ({ onLoginClick }) => {
+export const AuthButton = ({ onLoginClick }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -28,5 +28,3 @@ const AuthButton = ({ onLoginClick }) => {
     </button>
   );
 };
-
-export default AuthButton;

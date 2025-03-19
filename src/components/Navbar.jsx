@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import AuthButton from "./AuthButton";
+import { GiGuitar } from "react-icons/gi";
+import { AuthButton } from "./AuthButton";
 import { AuthModal } from "./AuthModal";
+import "../styles/navbar.css";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,10 +24,13 @@ export function Navbar() {
 
   return (
     <nav className="navbar bg-base-100 shadow-md relative">
-      <div className="navbar-container flex justify-between items-center p-4">
-        {/* Logo */}
-        <NavLink to="/" className="logo text-xl font-bold">
-          Touring Artist
+      <div className="navbar-container flex justify-between items-center p-4 w-full">
+        {/* Logo with Guitar Icon */}
+        <NavLink
+          to="/"
+          className="logo text-xl font-bold flex items-center gap-2"
+        >
+          <GiGuitar className="text-3xl" />
         </NavLink>
 
         {/* Hamburger Menu (Mobile) */}
