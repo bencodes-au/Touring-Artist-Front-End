@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../utils/auth";
 
-const AuthButton = () => {
+const AuthButton = ({ onLoginClick }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -12,9 +12,10 @@ const AuthButton = () => {
     if (isAuthenticated) {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
+
       navigate("/");
     } else {
-      navigate("/authentication");
+      onLoginClick();
     }
   };
 

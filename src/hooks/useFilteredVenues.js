@@ -20,7 +20,6 @@ export const useFilteredVenues = () => {
       .catch((error) => console.error("Error fetching venues:", error));
   }, []);
 
-  // Extract unique genres and locations from the fetched venues
   const uniqueGenres = [
     ...new Set(venues.map((venue) => venue.genre).filter(Boolean)),
   ];
@@ -28,7 +27,6 @@ export const useFilteredVenues = () => {
     ...new Set(venues.map((venue) => venue.location).filter(Boolean)),
   ];
 
-  // Apply filtering based on user selection
   const filteredVenues = venues.filter(
     (venue) =>
       (selectedGenre ? venue.genre === selectedGenre : true) &&

@@ -13,7 +13,6 @@ const BookingForm = ({ selectedVenueId }) => {
   const [venues, setVenues] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Fetch venues from the backend
   useEffect(() => {
     api
       .get("/venues")
@@ -30,12 +29,10 @@ const BookingForm = ({ selectedVenueId }) => {
     }
   }, []);
 
-  // Handle form input changes
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 

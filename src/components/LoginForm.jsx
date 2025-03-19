@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { useLoginUser } from "../hooks/useLoginUser"; // assuming you are using a custom hook
+import { useLoginUser } from "../hooks/useLoginUser";
 
 export function LoginForm({ closeModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // To store error message
+  const [errorMessage, setErrorMessage] = useState("");
   const mutation = useLoginUser();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     mutation.mutate(
       { email, password },
       {
         onSuccess: () => {
-          closeModal(); // Close the modal when login is successful
+          closeModal();
         },
         onError: (error) => {
           console.error("Login failed:", error);
-          // Set error message to be shown in the UI
           setErrorMessage(
             error.response?.data?.message || "An unexpected error occurred"
           );
@@ -26,39 +26,59 @@ export function LoginForm({ closeModal }) {
   };
 
   return (
-    <div className="login-container">
-      <form>
-        <div className="login-form-control">
-          <label>Email: </label>
+    <div className="login-container flex justify-center items-center h-full">
+      <form
+        className="w-full max-w-md"
+        onSubmit={handleSubmit}
+        aria-labelledby="login-form"
+      >
+        <h2 id="login-form" className="sr-only">
+          Login Form
+        </h2>{" "}
+        {}
+        {/* Email Input Field */}
+        <div className="form-group mb-4">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
           <input
+            id="email"
             type="email"
+            className="input input-bordered w-full"
             placeholder="Enter your email"
             onChange={(event) => setEmail(event.target.value)}
             value={email}
+            required
+            aria-describedby="emailHelp"
           />
         </div>
-        <div className="login-form-control">
-          <label>Password: </label>
+        {/* Password Input Field */}
+        <div className="form-group mb-4">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
+            id="password"
             type="password"
+            className="input input-bordered w-full"
             placeholder="Enter your password"
             onChange={(event) => setPassword(event.target.value)}
             value={password}
+            required
+            aria-describedby="passwordHelp"
           />
         </div>
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            handleSubmit();
-          }}
-        >
+        {/* Submit Button */}
+        <button type="submit" className="btn btn-primary w-full mt-4">
           Login
         </button>
       </form>
 
       {/* Display error message if login fails */}
       {errorMessage && (
-        <p className="text-red-500 text-center mt-2">{errorMessage}</p>
+        <div role="alert" className="text-red-500 text-center mt-2">
+          {errorMessage}
+        </div>
       )}
     </div>
   );

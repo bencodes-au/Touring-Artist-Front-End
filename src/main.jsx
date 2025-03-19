@@ -7,7 +7,6 @@ import "./styles/index.css";
 import { HomePage } from "./pages/HomePage.jsx";
 import { VenuesPage } from "./pages/VenuesPage.jsx";
 import { BookingsPage } from "./pages/BookingsPage.jsx";
-import { AuthenticationPage } from "./pages/AuthenticationPage.jsx";
 import { Navbar } from "./components/Navbar.jsx";
 import { AuthModal } from "./components/AuthModal.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
@@ -20,25 +19,31 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route
-            path="/"
-            element={<HomePage openAuthModal={() => setAuthModalOpen(true)} />}
-          />
-          <Route path="/venues" element={<VenuesPage />} />
+        <header>
+          {/* Pass openAuthModal to Navbar */}
+          <Navbar openAuthModal={() => setAuthModalOpen(true)} />
+        </header>
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage openAuthModal={() => setAuthModalOpen(true)} />
+              }
+            />
+            <Route path="/venues" element={<VenuesPage />} />
 
-          {/* Protect the BookingsPage */}
-          <Route
-            path="/bookings"
-            element={
-              <ProtectedRoute openAuthModal={() => setAuthModalOpen(true)}>
-                <BookingsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/authentication" element={<AuthenticationPage />} />
-        </Routes>
+            {/* Protect the BookingsPage */}
+            <Route
+              path="/bookings"
+              element={
+                <ProtectedRoute openAuthModal={() => setAuthModalOpen(true)}>
+                  <BookingsPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
 
         {/* Global Auth Modal */}
         {isAuthModalOpen && (

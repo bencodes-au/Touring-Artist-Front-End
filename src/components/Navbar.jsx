@@ -1,10 +1,20 @@
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import AuthButton from "./AuthButton";
-import "../styles/navbar.css";
+import { AuthModal } from "./AuthModal";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openAuthModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setIsModalOpen(false);
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -17,40 +27,18 @@ export function Navbar() {
         <NavLink to="/" className="logo text-xl font-bold">
           Touring Artist
         </NavLink>
+
         {/* Hamburger Menu (Mobile) */}
         <div className="lg:hidden">
           <button className="btn btn-ghost text-xl" onClick={toggleMenu}>
             {menuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-6 w-6 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
+              <FaTimes className="inline-block h-6 w-6" />
             ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-6 w-6 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
+              <FaBars className="inline-block h-6 w-6" />
             )}
           </button>
         </div>
+
         {/* Navigation Tabs (Dropdown on Mobile) */}
         <div
           className={`${
@@ -66,7 +54,6 @@ export function Navbar() {
               className={({ isActive }) =>
                 `tab ${isActive ? "tab-active" : ""}`
               }
-              onClick={() => setMenuOpen(false)}
               role="tab"
             >
               Home
@@ -76,7 +63,6 @@ export function Navbar() {
               className={({ isActive }) =>
                 `tab ${isActive ? "tab-active" : ""}`
               }
-              onClick={() => setMenuOpen(false)}
               role="tab"
             >
               Venues
@@ -86,18 +72,30 @@ export function Navbar() {
               className={({ isActive }) =>
                 `tab ${isActive ? "tab-active" : ""}`
               }
-              onClick={() => setMenuOpen(false)}
               role="tab"
             >
               Bookings
             </NavLink>
           </div>
         </div>
+
         {/* Authentication Button */}
         <div className="hidden lg:block">
-          <AuthButton />
+          <AuthButton onLoginClick={openAuthModal} />
+        </div>
+
+        {/* Authentication Button on Mobile */}
+        <div className="lg:hidden">
+          <AuthButton onLoginClick={openAuthModal} />
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isModalOpen}
+        closeModal={closeAuthModal}
+        error={null}
+      />
     </nav>
   );
 }

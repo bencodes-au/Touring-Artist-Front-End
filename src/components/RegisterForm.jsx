@@ -8,16 +8,16 @@ export function RegisterForm({ closeModal }) {
   const [password, setPassword] = useState("");
   const mutation = useRegisterUser();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     mutation.mutate(
       { username, phone, email, password },
       {
         onSuccess: () => {
-          // Close the modal upon successful registration
-          closeModal(); // Close the modal when registration is successful
+          closeModal();
         },
         onError: (error) => {
-          // Handle error case
           console.error(
             "Registration failed:",
             error.response?.data?.message || error.message
@@ -28,58 +28,82 @@ export function RegisterForm({ closeModal }) {
   };
 
   return (
-    <div className="register-container">
-      <form>
-        <div className="register-form-control">
-          <label>Username: </label>
+    <div className="register-container flex justify-center items-center h-full">
+      <form
+        className="w-full max-w-md"
+        onSubmit={handleSubmit}
+        aria-labelledby="register-heading"
+      >
+        <h2 id="register-heading" className="text-xl font-bold mb-4">
+          Register
+        </h2>
+
+        {/* Username */}
+        <div className="mb-4">
+          <label htmlFor="username" className="block font-medium mb-1">
+            Username
+          </label>
           <input
             type="text"
+            id="username"
+            className="input input-bordered w-full"
             placeholder="Enter your username"
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
+            onChange={(event) => setUsername(event.target.value)}
             value={username}
+            required
           />
         </div>
-        <div className="register-form-control">
-          <label>Phone: </label>
+
+        {/* Phone */}
+        <div className="mb-4">
+          <label htmlFor="phone" className="block font-medium mb-1">
+            Phone
+          </label>
           <input
             type="tel"
+            id="phone"
+            className="input input-bordered w-full"
             placeholder="Enter your phone"
-            onChange={(event) => {
-              setPhone(event.target.value);
-            }}
+            onChange={(event) => setPhone(event.target.value)}
             value={phone}
+            required
           />
         </div>
-        <div className="register-form-control">
-          <label>Email: </label>
+
+        {/* Email */}
+        <div className="mb-4">
+          <label htmlFor="email" className="block font-medium mb-1">
+            Email
+          </label>
           <input
             type="email"
+            id="email"
+            className="input input-bordered w-full"
             placeholder="Enter your email"
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
+            onChange={(event) => setEmail(event.target.value)}
             value={email}
+            required
           />
         </div>
-        <div className="register-form-control">
-          <label>Password: </label>
+
+        {/* Password */}
+        <div className="mb-4">
+          <label htmlFor="password" className="block font-medium mb-1">
+            Password
+          </label>
           <input
             type="password"
+            id="password"
+            className="input input-bordered w-full"
             placeholder="Enter your password"
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
+            onChange={(event) => setPassword(event.target.value)}
             value={password}
+            required
           />
         </div>
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            handleSubmit();
-          }}
-        >
+
+        {/* Submit Button */}
+        <button type="submit" className="btn btn-primary w-full mt-4">
           Register
         </button>
       </form>
