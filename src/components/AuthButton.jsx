@@ -19,7 +19,10 @@ const AuthButton = () => {
   };
 
   return (
-    <button onClick={handleClick} className="auth-button">
+    <button
+      onClick={handleClick}
+      className="btn btn-ghost hover:text-primary focus:text-primary transition-all"
+    >
       {isAuthenticated ? "Log Out" : "Log In"}
     </button>
   );

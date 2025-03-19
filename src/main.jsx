@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "./styles/index.css";
 import { HomePage } from "./pages/HomePage.jsx";
@@ -10,31 +9,56 @@ import { VenuesPage } from "./pages/VenuesPage.jsx";
 import { BookingsPage } from "./pages/BookingsPage.jsx";
 import { AuthenticationPage } from "./pages/AuthenticationPage.jsx";
 import { Navbar } from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-import "./styles/index.css";
+import { AuthModal } from "./components/AuthModal.jsx";
+import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 
 const queryClient = new QueryClient();
 
-// create route render
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
+const App = () => {
+  const [isAuthModalOpen, setAuthModalOpen] = useState(false);
+
+  return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Navbar /> {}
+        <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/venues" element={<VenuesPage />} />
-          <Route path="/bookings" element={<BookingsPage />} />
           <Route
-            path="/authentication"
-            element={<AuthenticationPage />}
-          ></Route>
+            path="/"
+            element={<HomePage openAuthModal={() => setAuthModalOpen(true)} />}
+          />
+          <Route path="/venues" element={<VenuesPage />} />
+
+          {/* Protect the BookingsPage */}
+          <Route
+            path="/bookings"
+            element={
+              <ProtectedRoute openAuthModal={() => setAuthModalOpen(true)}>
+                <BookingsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/authentication" element={<AuthenticationPage />} />
         </Routes>
-        <Footer />
+
+        {/* Global Auth Modal */}
+        {isAuthModalOpen && (
+          <AuthModal
+            isOpen={isAuthModalOpen}
+            closeModal={() => setAuthModalOpen(false)}
+          />
+        )}
       </BrowserRouter>
     </QueryClientProvider>
-  </React.StrictMode>
-);
+  );
+};
+
+const root = document.getElementById("root");
+
+if (root) {
+  const rootInstance = ReactDOM.createRoot(root);
+  rootInstance.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}

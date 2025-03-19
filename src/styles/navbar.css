@@ -1,103 +1,15 @@
-/* .navbar {
-  background-color: var(--primary);
-  padding: 1rem 2rem;
-  height: 60px; 
-  justify-content: center;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  width: 100%; 
-  position: relative;
-  padding: 0 20px;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text);
-  text-align: left;
-  margin-right: auto;
-}
-
-.auth-button {
-  margin-left: 20px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  margin-left: auto; 
-}
-
-.nav-links li {
-  display: inline-block;
-}
-
-.nav-links a {
-  text-decoration: none;
-  font-size: 1rem;
-  color: var(--text);
-}
-
-.nav-links a:hover {
-  color: var(--accent);
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--text);
-}
-
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
+@media (max-width: 1024px) {
   .navbar-container {
-    padding: 0 10px;
+    position: relative;
   }
 
-  .logo {
-    font-size: 1.2rem;
-  }
-
-  .nav-links {
+  .navbar-container > div[role="tablist"] {
     position: absolute;
-    top: 60px;
+    top: 100%; /* Directly under the menu */
     left: 0;
     width: 100%;
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem 0;
-    display: none;
-    background-color: var(--primary);
+    background-color: white; /* Adjust if needed */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 50;
   }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links li {
-    padding: 1rem 0;
-  }
-
-  .nav-links a {
-    font-size: 1.2rem;
-    color: var(--text);
-  }
-
-  .nav-links a:hover {
-    color: var(--accent);
-  }
-} */
+}

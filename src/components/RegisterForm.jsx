@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import { useRegisterUser } from "../hooks/useRegisterUser";
-import { useNavigate } from "react-router-dom";
 
-export function RegisterForm() {
+export function RegisterForm({ closeModal }) {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const mutation = useRegisterUser();
-  const navigate = useNavigate();
 
-  function handleSubmit() {
+  const handleSubmit = () => {
     mutation.mutate(
       { username, phone, email, password },
       {
         onSuccess: () => {
-          navigate("/");
+          // Close the modal upon successful registration
+          closeModal(); // Close the modal when registration is successful
         },
         onError: (error) => {
-          console.error("Registration failed:", error);
+          // Handle error case
+          console.error(
+            "Registration failed:",
+            error.response?.data?.message || error.message
+          );
         },
       }
     );
-  }
+  };
 
   return (
     <div className="register-container">

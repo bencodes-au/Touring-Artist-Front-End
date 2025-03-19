@@ -45,7 +45,6 @@ const BookingForm = ({ selectedVenueId }) => {
     if (!token || isTokenExpired(token)) {
       setError("You must be logged in to make a booking.");
       localStorage.removeItem("token");
-      window.location.href = "/authentication";
       return;
     }
 
@@ -86,80 +85,85 @@ const BookingForm = ({ selectedVenueId }) => {
   }, [selectedVenueId]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Venue:
-            <select
-              name="venue"
-              value={formData.venue}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Venue</option>
-              {venues.length > 0 ? (
-                venues.map((venue) => (
-                  <option key={venue._id} value={venue._id}>
-                    {venue.name}
-                  </option>
-                ))
-              ) : (
-                <option disabled>No venues available</option>
-              )}
-            </select>
-          </label>
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block mb-2 text-lg text-black">
+          Venue:
+          <select
+            name="venue"
+            value={formData.venue}
+            onChange={handleChange}
+            required
+            className="select select-bordered w-full mt-2"
+          >
+            <option value="">Select Venue</option>
+            {venues.length > 0 ? (
+              venues.map((venue) => (
+                <option key={venue._id} value={venue._id}>
+                  {venue.name}
+                </option>
+              ))
+            ) : (
+              <option disabled>No venues available</option>
+            )}
+          </select>
+        </label>
+      </div>
 
-        <div>
-          <label>
-            Date:
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
+      <div>
+        <label className="block mb-2 text-lg black">
+          Date:
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full mt-2"
+          />
+        </label>
+      </div>
 
-        <div>
-          <label>
-            Artist:
-            <input
-              type="text"
-              name="artist"
-              value={formData.artist}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
+      <div className="mb-4">
+        <label className="block mb-2 text-lg text-black">
+          Artist:
+          <input
+            type="text"
+            name="artist"
+            value={formData.artist}
+            onChange={handleChange}
+            required
+            className="input input-bordered w-full mt-2"
+            placeholder="Enter artist name"
+          />
+        </label>
+      </div>
 
-        <div>
-          <label>
-            Paid Upfront:
-            <input
-              type="checkbox"
-              name="paidUpfront"
-              checked={formData.paidUpfront}
-              onChange={(event) =>
-                setFormData({
-                  ...formData,
-                  paidUpfront: event.target.checked,
-                })
-              }
-            />
-          </label>
-        </div>
+      <div>
+        <label className="flex items-center text-black">
+          Paid Upfront:
+          <input
+            type="checkbox"
+            name="paidUpfront"
+            checked={formData.paidUpfront}
+            onChange={(event) =>
+              setFormData({
+                ...formData,
+                paidUpfront: event.target.checked,
+              })
+            }
+            className="checkbox ml-2"
+          />
+        </label>
+      </div>
 
-        {/* Show the error message if there's one */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+      {/* Show the error message if there's one */}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <button type="submit">Book Now</button>
-      </form>
-    </div>
+      <button type="submit" className="btn btn-primary w-full mt-4">
+        Book Now
+      </button>
+    </form>
   );
 };
 

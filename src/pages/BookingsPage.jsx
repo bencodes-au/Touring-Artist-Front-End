@@ -1,64 +1,83 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import BookingForm from "../components/BookingForm";
 import { useBookings } from "../hooks/useBookings";
-import { isTokenExpired } from "../utils/auth";
 
 export const BookingsPage = () => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
-
-  const { data, error, isLoading } = useBookings(userId, token);
-
+  const { data, error, isLoading } = useBookings();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const venueId = queryParams.get("venueId");
 
-  console.log("Token retrieved in BookingsPage:", token);
-  console.log("User ID retrieved in BookingsPage:", userId);
-  console.log("Selected Venue ID:", venueId);
-
-  useEffect(() => {
-    if (!token || !userId || isTokenExpired(token)) {
-      console.log(
-        "Redirecting to authentication page due to expired or missing token"
-      );
-      localStorage.removeItem("token");
-      navigate("/authentication");
-      return;
-    }
-  }, [token, userId, navigate]);
-
-  console.log({ data, error });
-
+  // Loading state
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-primary">
+        <span>Loading...</span>
+      </div>
+    );
   }
 
+  // Error state
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-primary">
+        <span>Error: {error.message}</span>
+      </div>
+    );
   }
 
-  if (data?.data?.length === 0) {
-    return <div>No bookings found.</div>;
+  // If there are no bookings
+  if (!data || !data.data || data.data.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-base-100 p-6">
+        <div className="w-full max-w-xl">
+          <h2 className="text-3xl font-semibold mb-6 text-primary">Bookings</h2>
+
+          {/* Show the booking form */}
+          <BookingForm selectedVenueId={venueId} />
+
+          {/* No bookings message */}
+          <div className="text-lg text-primary mt-6">No bookings found.</div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="bookings">
-      <h2>Bookings</h2>
+    <div className="flex justify-center items-center h-screen bg-base-100 p-6">
+      <div className="w-full max-w-xl">
+        <h2 className="text-3xl font-semibold mb-6 text-primary">Bookings</h2>
 
-      {/* If the user is logged in, show the booking form */}
-      {token && userId && <BookingForm selectedVenueId={venueId} />}
+        {/* Show the booking form */}
+        <BookingForm selectedVenueId={venueId} />
 
-      {/* Show existing bookings if available */}
-      <ul>
-        {data?.data?.map((booking) => (
-          <li key={booking._id}>
-            {booking.artist} - {booking.date}
-          </li>
-        ))}
-      </ul>
+        {/* Previous Bookings Section */}
+        <div className="previous-bookings mt-8">
+          <h3 className="text-2xl font-bold mb-4 text-primary">
+            Previous Bookings
+          </h3>
+
+          <div className="bookings-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.data.map((booking) => (
+              <div
+                className="card card-bordered bg-base-100 shadow-xl w-full"
+                key={booking._id}
+              >
+                <div className="card-body">
+                  <h2 className="card-title text-primary">{booking.artist}</h2>
+                  <p className="text-primary">
+                    Booking Date: {new Date(booking.date).toLocaleDateString()}
+                  </p>
+                  <div className="card-actions justify-end mt-4">
+                    <button className="btn btn-primary">View Details</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

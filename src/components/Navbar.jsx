@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 import AuthButton from "./AuthButton";
 import "../styles/navbar.css";
 
@@ -11,39 +10,91 @@ export function Navbar() {
     setMenuOpen(!menuOpen);
   };
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        {/* Logo / Brand */}
-        <NavLink to="/" className="logo" onClick={closeMenu}>
-          <p>Touring Artist</p>
+    <nav className="navbar bg-base-100 shadow-md relative">
+      <div className="navbar-container flex justify-between items-center p-4">
+        {/* Logo */}
+        <NavLink to="/" className="logo text-xl font-bold">
+          Touring Artist
         </NavLink>
-
-        {/* Hamburger Icon (Mobile) */}
-        <button
-          className="menu-toggle"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
+        {/* Hamburger Menu (Mobile) */}
+        <div className="lg:hidden">
+          <button className="btn btn-ghost text-xl" onClick={toggleMenu}>
+            {menuOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block h-6 w-6 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block h-6 w-6 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            )}
+          </button>
+        </div>
+        {/* Navigation Tabs (Dropdown on Mobile) */}
+        <div
+          className={`${
+            menuOpen ? "flex" : "hidden"
+          } flex-col lg:flex lg:flex-row absolute lg:static top-full left-0 w-full bg-base-100 shadow-lg lg:shadow-none z-50`}
         >
-          {menuOpen ? <FaTimes /> : <FaBars />}
-        </button>
-
-        {/* Navbar Links */}
-        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <NavLink to="/" onClick={closeMenu}>
-            Home
-          </NavLink>
-          <NavLink to="/venues" onClick={closeMenu}>
-            Venues
-          </NavLink>
-          <NavLink to="/bookings" onClick={closeMenu}>
-            Bookings
-          </NavLink>
-          {/* Authentication Button */}
+          <div
+            role="tablist"
+            className="tabs tabs-boxed flex flex-col lg:flex-row gap-2 p-2"
+          >
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `tab ${isActive ? "tab-active" : ""}`
+              }
+              onClick={() => setMenuOpen(false)}
+              role="tab"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/venues"
+              className={({ isActive }) =>
+                `tab ${isActive ? "tab-active" : ""}`
+              }
+              onClick={() => setMenuOpen(false)}
+              role="tab"
+            >
+              Venues
+            </NavLink>
+            <NavLink
+              to="/bookings"
+              className={({ isActive }) =>
+                `tab ${isActive ? "tab-active" : ""}`
+              }
+              onClick={() => setMenuOpen(false)}
+              role="tab"
+            >
+              Bookings
+            </NavLink>
+          </div>
+        </div>
+        {/* Authentication Button */}
+        <div className="hidden lg:block">
           <AuthButton />
         </div>
       </div>
