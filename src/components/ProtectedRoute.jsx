@@ -9,7 +9,6 @@ export const ProtectedRoute = ({ children, openAuthModal }) => {
 
   useEffect(() => {
     if (!token || !userId || isTokenExpired(token)) {
-      console.log("Redirecting to home page due to expired or missing token");
       localStorage.removeItem("token");
       navigate("/");
       openAuthModal();

@@ -8,11 +8,7 @@ export function useLoginUser() {
   return useMutation({
     mutationFn: async (payload) => {
       try {
-        console.log("Login Payload:", payload);
-
         const response = await api.post("/users/login", payload);
-        console.log("Login response:", response.data);
-
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("userId", response.data.user_id);

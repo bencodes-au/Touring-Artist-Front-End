@@ -13,7 +13,6 @@ const BookingForm = ({ selectedVenueId }) => {
   const [error, setError] = useState("");
   const { data: venues, isPending } = useVenues();
   const request = useCreateBooking();
-  console.log(venues);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });

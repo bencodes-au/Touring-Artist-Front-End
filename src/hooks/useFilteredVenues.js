@@ -10,7 +10,6 @@ export const useFilteredVenues = () => {
     api
       .get("/venues")
       .then((response) => {
-        console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
           setVenues(response.data);
         } else {
