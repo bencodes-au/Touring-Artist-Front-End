@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "./api";
 
-export const useBookings = (userId, token) => {
+export const useBookings = () => {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
   const endpoint = `bookings/user/${userId}`;
   const auth = `Bearer ${token}`;
 

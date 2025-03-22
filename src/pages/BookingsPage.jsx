@@ -39,14 +39,14 @@ export const BookingsPage = () => {
         </section>
 
         {/* If No Bookings */}
-        {(!data || !data.data || data.data.length === 0) && (
+        {(!data || data.length === 0) && (
           <section className="text-lg text-primary mt-6">
             <p>No bookings found.</p>
           </section>
         )}
 
         {/* Previous Bookings Section */}
-        {data?.data?.length > 0 && (
+        {data?.length > 0 && (
           <section className="mt-8" aria-labelledby="previous-bookings">
             <h2
               id="previous-bookings"
@@ -55,10 +55,10 @@ export const BookingsPage = () => {
               Previous Bookings
             </h2>
 
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.data.map((booking) => (
-                <li key={booking._id} className="w-full">
-                  <article className="card card-bordered bg-base-100 shadow-xl">
+            <ul className="flex flex-wrap gap-6 justify-center">
+              {data.map((booking) => (
+                <li key={booking._id}>
+                  <article className="card card-bordered bg-base-100 shadow-xl w-full min-w-lg">
                     <div className="card-body">
                       <h3 className="card-title text-primary">
                         {booking.artist}
@@ -67,11 +67,6 @@ export const BookingsPage = () => {
                         Booking Date:{" "}
                         {new Date(booking.date).toLocaleDateString()}
                       </p>
-                      <div className="card-actions justify-end mt-4">
-                        <button className="btn btn-primary">
-                          View Details
-                        </button>
-                      </div>
                     </div>
                   </article>
                 </li>
