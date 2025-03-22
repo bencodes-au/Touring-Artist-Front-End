@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import api from "../hooks/api";
 import { isTokenExpired } from "../utils/auth";
+import { useVenues } from "../hooks/useVenues";
+import { useCreateBooking } from "../hooks/useCreateBooking";
 
 const BookingForm = ({ selectedVenueId }) => {
   const [formData, setFormData] = useState({
@@ -10,24 +11,9 @@ const BookingForm = ({ selectedVenueId }) => {
     paidUpfront: false,
   });
   const [error, setError] = useState("");
-  const [venues, setVenues] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    api
-      .get("/venues")
-      .then((response) => {
-        setVenues(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching venues:", error);
-      });
-
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
+  const { data: venues, isPending } = useVenues();
+  const request = useCreateBooking();
+  console.log(venues);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -47,14 +33,8 @@ const BookingForm = ({ selectedVenueId }) => {
 
     const dataWithUserId = { ...formData, userId };
 
-    api
-      .post("/bookings", dataWithUserId, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
+    request.mutate(dataWithUserId, {
+      onSuccess: () => {
         setFormData({
           venue: "",
           date: "",
@@ -62,24 +42,16 @@ const BookingForm = ({ selectedVenueId }) => {
           paidUpfront: false,
         });
         setError("");
-      })
-      .catch((error) => {
+      },
+      onError: () => {
         if (error.response && error.response.data.error) {
           setError(error.response.data.error);
         } else {
           setError("Failed to create booking. Please try again.");
         }
-      });
+      },
+    });
   };
-
-  useEffect(() => {
-    if (selectedVenueId) {
-      setFormData((prevState) => ({
-        ...prevState,
-        venue: selectedVenueId,
-      }));
-    }
-  }, [selectedVenueId]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -94,8 +66,8 @@ const BookingForm = ({ selectedVenueId }) => {
             className="select select-bordered w-full mt-2"
           >
             <option value="">Select Venue</option>
-            {venues.length > 0 ? (
-              venues.map((venue) => (
+            {!isPending && venues.data.length > 0 ? (
+              venues.data.map((venue) => (
                 <option key={venue._id} value={venue._id}>
                   {venue.name}
                 </option>
