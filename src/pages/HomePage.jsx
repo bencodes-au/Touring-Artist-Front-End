@@ -11,7 +11,7 @@ export function HomePage() {
 
   return (
     <div
-      className="hero min-h-screen"
+      className="hero h-[calc(100vh-88px)] lg:h-[calc(100vh-104px)]"
       style={{
         backgroundImage: `url(${micImage})`,
         backgroundSize: "cover",

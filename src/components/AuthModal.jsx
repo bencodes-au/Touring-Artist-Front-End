@@ -22,40 +22,7 @@ export function AuthModal({ isOpen, closeModal, error }) {
           >
             Welcome to Touring Artist!
           </h2>
-          <p
-            id="auth-modal-description"
-            className="py-2 text-center"
-            aria-live="polite"
-          >
-            Please log in or register to manage bookings and explore venues.
-          </p>
         </header>
-
-        {/* Tabs for Login and Register */}
-        <nav>
-          <div
-            className="tabs tabs-boxed flex justify-center"
-            aria-label="Login and Register tabs"
-          >
-            <button
-              className={`tab ${activeTab === "login" ? "tab-active" : ""}`}
-              onClick={() => setActiveTab("login")}
-              aria-selected={activeTab === "login"}
-              aria-controls="login-form"
-            >
-              Login
-            </button>
-            <button
-              className={`tab ${activeTab === "register" ? "tab-active" : ""}`}
-              onClick={() => setActiveTab("register")}
-              aria-selected={activeTab === "register"}
-              aria-controls="register-form"
-            >
-              Register
-            </button>
-          </div>
-        </nav>
-
         {/* Load the appropriate Form */}
         <main>
           <div className="mt-4">
@@ -66,14 +33,35 @@ export function AuthModal({ isOpen, closeModal, error }) {
             )}
           </div>
         </main>
-
         {/* Show Error Message */}
         {error && (
           <section aria-live="assertive">
             <p className="text-red-500 text-center mt-2">{error}</p>
           </section>
         )}
-
+        <div className="pt-2 flex justify-center w-full">
+          {activeTab === "login" ? (
+            <p>
+              Don't have an account?{" "}
+              <button
+                className="btn btn-link"
+                onClick={() => setActiveTab("register")}
+              >
+                Sign Up
+              </button>
+            </p>
+          ) : (
+            <p>
+              Already have an account?{" "}
+              <button
+                className="btn btn-link"
+                onClick={() => setActiveTab("login")}
+              >
+                Log In
+              </button>
+            </p>
+          )}
+        </div>
         {/* Close Button */}
         <footer>
           <div className="modal-action">

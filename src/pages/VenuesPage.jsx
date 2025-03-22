@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useFilteredVenues } from "../hooks/useFilteredVenues";
-import "../styles/venues.css";
 import { FiChevronDown } from "react-icons/fi";
 
 export const VenuesPage = () => {
@@ -18,7 +17,7 @@ export const VenuesPage = () => {
   return (
     <div className="venue-blurb">
       {/* Filters */}
-      <div className="flex gap-4 px-12 mb-6">
+      <div className="flex gap-4 px-12 mt-12">
         {/* Genre Dropdown */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn m-1">
@@ -54,7 +53,7 @@ export const VenuesPage = () => {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2"
+            className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm"
           >
             <li>
               <a onClick={() => setSelectedLocation("")}>All Locations</a>
@@ -77,7 +76,7 @@ export const VenuesPage = () => {
       </div>
 
       {/* Venue Cards */}
-      <div className="flex flex-wrap gap-6 p-12 justify-start">
+      <div className="flex flex-wrap gap-6 px-12 py-6 justify-start">
         {venues.length > 0 ? (
           venues.map((venue) => (
             <div

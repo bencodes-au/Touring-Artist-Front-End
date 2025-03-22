@@ -11,7 +11,7 @@ export const BookingsPage = () => {
 
   if (isLoading) {
     return (
-      <main className="flex justify-center items-center h-screen text-primary">
+      <main className="flex justify-center items-center text-primary">
         <p>Loading...</p>
       </main>
     );
@@ -19,15 +19,15 @@ export const BookingsPage = () => {
 
   if (error) {
     return (
-      <main className="flex justify-center items-center h-screen text-primary">
+      <main className="flex justify-center items-center text-primary">
         <p>Error: {error.message}</p>
       </main>
     );
   }
 
   return (
-    <main className="flex justify-center items-center h-screen bg-base-100 p-6">
-      <div className="w-full max-w-xl">
+    <main className="flex justify-center items-center bg-base-100 p-6">
+      <div className="py-12 w-full max-w-xl">
         <h1 className="text-3xl font-semibold mb-6 text-primary">Bookings</h1>
 
         {/* Booking Form */}

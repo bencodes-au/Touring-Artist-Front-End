@@ -22,7 +22,7 @@ export const AuthButton = ({ onLoginClick }) => {
   return (
     <button
       onClick={handleClick}
-      className="btn btn-ghost hover:text-primary focus:text-primary transition-all"
+      className="btn btn-ghost hover:text-primary focus:text-primary transition-all whitespace-nowrap"
     >
       {isAuthenticated ? "Log Out" : "Log In"}
     </button>

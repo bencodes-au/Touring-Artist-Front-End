@@ -57,9 +57,9 @@ export function Navbar() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `tab ${isActive ? "tab-active" : ""}`
+                `tab text-black ${isActive ? "tab-active font-bold" : ""}`
               }
-              role="tab"
+              role="tab "
             >
               Home
             </NavLink>

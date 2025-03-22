@@ -32,13 +32,13 @@ export function LoginForm({ closeModal }) {
         onSubmit={handleSubmit}
         aria-labelledby="login-form"
       >
-        <h2 id="login-form" className="sr-only">
+        <h2 id="login-form" className="text-xl font-bold mb-4">
           Login Form
         </h2>{" "}
         {}
         {/* Email Input Field */}
         <div className="form-group mb-4">
-          <label htmlFor="email" className="form-label">
+          <label htmlFor="email" className="block font-medium mb-1">
             Email
           </label>
           <input
@@ -54,7 +54,7 @@ export function LoginForm({ closeModal }) {
         </div>
         {/* Password Input Field */}
         <div className="form-group mb-4">
-          <label htmlFor="password" className="form-label">
+          <label htmlFor="password" className="block font-medium mb-1">
             Password
           </label>
           <input
