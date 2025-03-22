@@ -33,7 +33,7 @@ export function LoginForm({ closeModal }) {
         aria-labelledby="login-form"
       >
         <h2 id="login-form" className="text-xl font-bold mb-4">
-          Login Form
+          Login
         </h2>{" "}
         {}
         {/* Email Input Field */}

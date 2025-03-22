@@ -65,7 +65,13 @@ export function AuthModal({ isOpen, closeModal, error }) {
         {/* Close Button */}
         <footer>
           <div className="modal-action">
-            <button className="btn" onClick={closeModal}>
+            <button
+              className="btn"
+              onClick={() => {
+                setActiveTab("login");
+                closeModal();
+              }}
+            >
               Close
             </button>
           </div>
