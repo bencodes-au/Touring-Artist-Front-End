@@ -25,7 +25,7 @@ export function Navbar() {
   return (
     <nav className="navbar bg-base-100 shadow-md relative">
       <div className="navbar-container flex justify-between items-center p-4 w-full">
-        {/* Logo with Guitar Icon */}
+        {/* Logo */}
         <NavLink
           to="/"
           className="logo text-xl font-bold flex items-center gap-2"

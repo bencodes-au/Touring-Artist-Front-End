@@ -5,7 +5,7 @@ import { AuthButton } from "../components/AuthButton";
 vi.mock("../utils/auth", async () => {
   const authModule = await import("../utils/auth");
   return {
-    ...authModule, // Keep all other exports intact
+    ...authModule,
     isTokenExpired: vi.fn(),
   };
 });
@@ -33,13 +33,12 @@ describe("AuthButton", () => {
   test("renders 'Log Out' when authenticated", async () => {
     localStorage.setItem("token", "valid-token");
 
-    // Dynamically import `isTokenExpired` and mock its return value
     const { isTokenExpired } = await import("../utils/auth");
-    isTokenExpired.mockReturnValue(false); // Return false, meaning the user is authenticated
+    isTokenExpired.mockReturnValue(false);
 
     render(<AuthButton onLoginClick={() => {}} />);
     const logoutButton = screen.queryByRole("button", { name: /log out/i });
-    expect(logoutButton).toBeTruthy(); // Ensuring 'Log Out' button is present
+    expect(logoutButton).toBeTruthy();
   });
 
   test("calls onLoginClick when not authenticated", () => {
