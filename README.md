@@ -1,4 +1,4 @@
-# Touring-Artist-Back-End
+# Touring-Artist-Front-End
 Touring Arist is an application built for artists booking venues. Created as part of study at CoderAcademy. 
 
 Repo: https://github.com/bencodes-au/Touring-Artist-Front-End#
